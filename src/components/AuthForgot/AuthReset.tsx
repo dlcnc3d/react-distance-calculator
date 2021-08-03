@@ -23,6 +23,8 @@ type Props = {
 };
 
 export const AuthReset: React.FC<Props> = (props) => {
+
+  const EMAIL_REGEXP = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
   const classes = useStyles();
   const { handleSubmit, control } = useForm<FormValues>();
 
@@ -81,26 +83,25 @@ export const AuthReset: React.FC<Props> = (props) => {
             <Box p={1} />
 
             <Controller
-              name="email"
-              control={control}
-              defaultValue=""
-              render={({
-                field: { onChange, value },
-                fieldState: { error },
-              }) => (
-                <TextField
-                  variant="outlined"
-                  label="email"
-                  type="email"
-                  value={value}
-                  onChange={onChange}
-                  error={!!error}
-                  helperText={error ? error.message : null}
-                  id="age"
-                />
-              )}
-              rules={{ required: "email is required" }}
-            />
+                name="email"
+                control={control}
+                defaultValue=""
+                render={({ field, fieldState: { error } }) => (
+                  <TextField
+                    {...field}
+                    variant="outlined"
+                    label="email"
+                    type="email"
+                    error={!!error}
+                    helperText={error ? error.message : null}
+                    id="email"
+                  />
+                )}
+                rules={{ required: "email is required", pattern: {
+                  value: EMAIL_REGEXP,
+                  message: 'Email format is not correct'
+                } }}
+              />
             <Box p={1} />
 
             <Box p={1} />

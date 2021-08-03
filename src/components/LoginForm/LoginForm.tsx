@@ -61,7 +61,7 @@ export const LoginForm: React.FC<Props> = (props) => {
     setLoading(false);
   };
 
-  const onSubmit = (data: FormValues) => console.log(data);
+  
 
   return (
     <div>
@@ -84,8 +84,7 @@ export const LoginForm: React.FC<Props> = (props) => {
 
           <form className={classes.form} onSubmit={handleSubmit(submitHandler)}>
             <Box p={1} />
-
-            <form onSubmit={handleSubmit(onSubmit)}>
+            
               <Controller
                 name="email"
                 control={control}
@@ -106,28 +105,23 @@ export const LoginForm: React.FC<Props> = (props) => {
                   message: 'Email format is not correct'
                 } }}
               />
-            </form>
+            
  
             <Box p={1} />
-
             <Controller
-              name="password"
-              control={control}
-              defaultValue=""
-              render={({
-                field: { onChange, value },
-                fieldState: { error },
-              }) => (
-                <TextField
-                  variant="outlined"
-                  type="password"
-                  label="password"
-                  value={value}
-                  onChange={onChange}
-                  error={!!error}
-                  helperText={error ? error.message : null}
-                  id="password"
-                />
+                name="password"
+                control={control}
+                defaultValue=""
+                render={({ field, fieldState: { error } }) => (
+                  <TextField
+                    {...field}
+                    variant="outlined"
+                    type="password"
+                    label="password"                    
+                    error={!!error}
+                    helperText={error ? error.message : null}
+                    id="password"
+                  />
               )}
               rules={{
                 required: "password is required",

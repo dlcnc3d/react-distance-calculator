@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Grid } from "@material-ui/core";
 import { Paper } from "@material-ui/core";
-import useStyles from "./SidePanel.styles";
+import useStyles from "./MainComponent.styles";
 import MapWrapper from "../Gmap/MapWrapper/MapWrapper";
 import { CalculateDistanceForm } from "../CalculateDistanceForm/CalculateDistanceForm";
 import { MarkerData } from "../../definitions/types";
@@ -11,7 +11,7 @@ import { getAddressByLatLngHelper } from "../../core/helpers/geocode.helpers";
 import { Loader } from "../Loader/Loader";
 import uniqid from "uniqid";
 
-export const SidePanel: React.FC = () => {
+export const MainComponent: React.FC = () => {
   const onMapClickHandle = (e: MarkerData) => {
     selectHandler(e as MarkerData, MarkerType.Start, MarkerType.Finish);
   };

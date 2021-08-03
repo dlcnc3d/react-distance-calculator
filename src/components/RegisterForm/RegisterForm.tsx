@@ -27,6 +27,8 @@ type Props = {
 };
 
 export const RegisterForm: React.FC<Props> = (props) => {
+
+  const EMAIL_REGEXP = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
   const classes = useStyles();
   const { handleSubmit, control } = useForm<FormValues>();
 
@@ -82,22 +84,20 @@ export const RegisterForm: React.FC<Props> = (props) => {
               name="email"
               control={control}
               defaultValue=""
-              render={({
-                field: { onChange, value },
-                fieldState: { error },
-              }) => (
+              render={({ field, fieldState: { error } }) => (
                 <TextField
                   variant="outlined"
                   label="email"
-                  type="email"
-                  value={value}
-                  onChange={onChange}
+                  type="email"                 
                   error={!!error}
                   helperText={error ? error.message : null}
                   id="age"
                 />
               )}
-              rules={{ required: "email is required" }}
+              rules={{ required: "email is required", pattern: {
+                value: EMAIL_REGEXP,
+                message: 'Email format is not correct'
+              } }}
             />
             <Box p={1} />
 
@@ -105,16 +105,11 @@ export const RegisterForm: React.FC<Props> = (props) => {
               name="password"
               control={control}
               defaultValue=""
-              render={({
-                field: { onChange, value },
-                fieldState: { error },
-              }) => (
+              render={({ field, fieldState: { error } }) => (
                 <TextField
                   variant="outlined"
                   type="password"
-                  label="password"
-                  value={value}
-                  onChange={onChange}
+                  label="password"                  
                   error={!!error}
                   helperText={error ? error.message : null}
                   id="password"
@@ -134,16 +129,11 @@ export const RegisterForm: React.FC<Props> = (props) => {
               name="confirmPassword"
               control={control}
               defaultValue=""
-              render={({
-                field: { onChange, value },
-                fieldState: { error },
-              }) => (
+              render={({ field, fieldState: { error } }) => (
                 <TextField
                   variant="outlined"
                   type="password"
-                  label="confirm password"
-                  value={value}
-                  onChange={onChange}
+                  label="confirm password"                 
                   error={!!error}
                   helperText={error ? error.message : null}
                   id="confirmPassword"

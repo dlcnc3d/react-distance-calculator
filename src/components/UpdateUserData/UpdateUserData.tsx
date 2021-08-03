@@ -24,6 +24,9 @@ type Props = {
 };
 
 export const UpdateUserData: React.FC<Props> = (props) => {
+
+const EMAIL_REGEXP = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+
   const classes = useStyles();
   const { handleSubmit, control } = useForm<FormValues>();
 
@@ -109,49 +112,41 @@ export const UpdateUserData: React.FC<Props> = (props) => {
             <Box p={1} />
 
             <Controller
-              name="email"
-              control={control}
-              defaultValue={currentUser.email !== null ? currentUser.email : ""}
-              render={({
-                field: { onChange, value },
-                fieldState: { error },
-              }) => (
-                <TextField
-                  className={classes.input}
-                  variant="outlined"
-                  label="email"
-                  type="email"
-                  value={value}
-                  onChange={onChange}
-                  error={!!error}
-                  helperText={error ? error.message : null}
-                  id="age"
-                />
-              )}
-              rules={{ required: "email is required" }}
-            />
+                name="email"
+                control={control}
+                defaultValue=""
+                render={({ field, fieldState: { error } }) => (
+                  <TextField
+                    {...field}
+                    variant="outlined"
+                    label="email"
+                    type="email"
+                    error={!!error}
+                    helperText={error ? error.message : null}
+                    id="email"
+                  />
+                )}
+                rules={{ required: "email is required", pattern: {
+                  value: EMAIL_REGEXP,
+                  message: 'Email format is not correct'
+                } }}
+              />
             <Box p={1} />
 
             <Controller
-              name="password"
-              control={control}
-              defaultValue=""
-              render={({
-                field: { onChange, value },
-                fieldState: { error },
-              }) => (
-                <TextField
-                  className={classes.input}
-                  variant="outlined"
-                  type="password"
-                  label="password"
-                  placeholder="do not type if you want to keep same data"
-                  value={value}
-                  onChange={onChange}
-                  error={!!error}
-                  helperText={error ? error.message : null}
-                  id="password"
-                />
+                name="password"
+                control={control}
+                defaultValue=""
+                render={({ field, fieldState: { error } }) => (
+                  <TextField
+                    {...field}
+                    variant="outlined"
+                    type="password"
+                    label="password"                    
+                    error={!!error}
+                    helperText={error ? error.message : null}
+                    id="password"
+                  />      
               )}
               rules={{
                 minLength: {
@@ -166,18 +161,13 @@ export const UpdateUserData: React.FC<Props> = (props) => {
               name="confirmPassword"
               control={control}
               defaultValue=""
-              render={({
-                field: { onChange, value },
-                fieldState: { error },
-              }) => (
+              render={({ field, fieldState: { error } }) => (
                 <TextField
                   className={classes.input}
                   variant="outlined"
                   type="password"
                   label="confirm password"
-                  placeholder="do not type if you want to keep same data"
-                  value={value}
-                  onChange={onChange}
+                  placeholder="do not type if you want to keep same data"                 
                   error={!!error}
                   helperText={error ? error.message : null}
                   id="confirmPassword"
