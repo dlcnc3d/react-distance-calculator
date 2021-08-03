@@ -48,6 +48,8 @@ const MapWrapper = (props: Props) => {
   const { points, routesEnabled } = useMapData();
   const { setError } = useMapData();
   const { currentUser } = useAuthData();
+  const { routes, setRoutes } = useMapData();
+  const Offset = new google.maps.Size(0, -50);
 
   const MapClickHandle = (e: any) => {
     if (currentUser !== null) {
@@ -79,8 +81,12 @@ const MapWrapper = (props: Props) => {
           position={{ lat: p.lat, lng: p.lng }}
           animation={google.maps.Animation.DROP}
           label={MarkerType[p.type]}
+          visible={routes !== null ? false : true}
         >
-          <InfoWindow position={{ lat: p.lat, lng: p.lng }}>
+          <InfoWindow
+            options={{ pixelOffset: Offset }}
+            position={{ lat: p.lat, lng: p.lng }}
+          >
             <div>{p.address}</div>
           </InfoWindow>
         </Marker>

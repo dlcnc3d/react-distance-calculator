@@ -27,8 +27,8 @@ type Props = {
 };
 
 export const RegisterForm: React.FC<Props> = (props) => {
-
-  const EMAIL_REGEXP = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+  const EMAIL_REGEXP =
+    /^(([^<>()[\]\\.,;:\s@\\"]+(\.[^<>()[\]\\.,;:\s@\\"]+)*)|(\\".+\\"))@(([^<>()[\]\\.,;:\s@\\"]+\.)+[^<>()[\]\\.,;:\s@\\"]{2,})$/i;
   const classes = useStyles();
   const { handleSubmit, control } = useForm<FormValues>();
 
@@ -60,10 +60,14 @@ export const RegisterForm: React.FC<Props> = (props) => {
     <div>
       <Paper className={classes.root}>
         <Grid>
-          <div className={classes.titlemain}>
+          <div
+            className={
+              error === "" ? classes.titlemain : classes.titlemainAlert
+            }
+          >
             <Typography className={classes.title}>Sign Up </Typography>
-            <Box p={1}>
-              {error && (
+            {error && (
+              <Box p={1}>
                 <Alert
                   className={classes.input}
                   variant="filled"
@@ -71,8 +75,8 @@ export const RegisterForm: React.FC<Props> = (props) => {
                 >
                   {error}
                 </Alert>
-              )}
-            </Box>
+              </Box>
+            )}
           </div>
 
           <form className={classes.form} onSubmit={handleSubmit(submitHandler)}>
@@ -86,18 +90,22 @@ export const RegisterForm: React.FC<Props> = (props) => {
               defaultValue=""
               render={({ field, fieldState: { error } }) => (
                 <TextField
+                  {...field}
                   variant="outlined"
                   label="email"
-                  type="email"                 
+                  type="email"
                   error={!!error}
                   helperText={error ? error.message : null}
                   id="age"
                 />
               )}
-              rules={{ required: "email is required", pattern: {
-                value: EMAIL_REGEXP,
-                message: 'Email format is not correct'
-              } }}
+              rules={{
+                required: "email is required",
+                pattern: {
+                  value: EMAIL_REGEXP,
+                  message: "Email format is not correct",
+                },
+              }}
             />
             <Box p={1} />
 
@@ -107,9 +115,10 @@ export const RegisterForm: React.FC<Props> = (props) => {
               defaultValue=""
               render={({ field, fieldState: { error } }) => (
                 <TextField
+                  {...field}
                   variant="outlined"
                   type="password"
-                  label="password"                  
+                  label="password"
                   error={!!error}
                   helperText={error ? error.message : null}
                   id="password"
@@ -131,9 +140,10 @@ export const RegisterForm: React.FC<Props> = (props) => {
               defaultValue=""
               render={({ field, fieldState: { error } }) => (
                 <TextField
+                  {...field}
                   variant="outlined"
                   type="password"
-                  label="confirm password"                 
+                  label="confirm password"
                   error={!!error}
                   helperText={error ? error.message : null}
                   id="confirmPassword"

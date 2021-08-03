@@ -29,16 +29,28 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(0),
       justifyContent: "center",
       backgroundColor: "#596F87",
+      display:"flex"
     },
+
+    titlemainAlert: {
+      marginTop: "20",
+      textAlign: "center",
+      height: "110px",
+      padding: theme.spacing(0),
+      justifyContent: "center",
+      backgroundColor: "#596F87",           
+    },
+
 
     title: {
       fontSize: 30,
-      textAlign: "center",
+      textAlign: "center",      
       color: "white",
-    },
-    text: {
-      fontSize: 15,
-      textAlign: "center",
+      
+      justifyContent: "center",
+      alignItems: "center",
+      display: "flex",
+      flexDirection: "column",
     },
 
     input: {

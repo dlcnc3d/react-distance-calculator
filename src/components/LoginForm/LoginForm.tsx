@@ -1,8 +1,4 @@
 import React, { useState } from "react";
-
-import Input from "@material-ui/core/Input";
-import Select from "react-select";
-
 import {
   Box,
   Button,
@@ -28,7 +24,8 @@ type Props = {
   onClose: () => void;
 };
 
-const EMAIL_REGEXP = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+const EMAIL_REGEXP =
+  /^(([^<>()[\]\\.,;:\s@\\"]+(\.[^<>()[\]\\.,;:\s@\\"]+)*)|(\\".+\\"))@(([^<>()[\]\\.,;:\s@\\"]+\.)+[^<>()[\]\\.,;:\s@\\"]{2,})$/i;
 
 export const LoginForm: React.FC<Props> = (props) => {
   const classes = useStyles();
@@ -61,13 +58,15 @@ export const LoginForm: React.FC<Props> = (props) => {
     setLoading(false);
   };
 
-  
-
   return (
     <div>
       <Paper className={classes.root}>
         <Grid>
-          <div className={classes.titlemain}>
+          <div
+            className={
+              error === "" ? classes.titlemain : classes.titlemainAlert
+            }
+          >
             <Typography className={classes.title}>Log in </Typography>
             <Box p={1}>
               {error && (
@@ -84,44 +83,46 @@ export const LoginForm: React.FC<Props> = (props) => {
 
           <form className={classes.form} onSubmit={handleSubmit(submitHandler)}>
             <Box p={1} />
-            
-              <Controller
-                name="email"
-                control={control}
-                defaultValue=""
-                render={({ field, fieldState: { error } }) => (
-                  <TextField
-                    {...field}
-                    variant="outlined"
-                    label="email"
-                    type="email"
-                    error={!!error}
-                    helperText={error ? error.message : null}
-                    id="email"
-                  />
-                )}
-                rules={{ required: "email is required", pattern: {
+
+            <Controller
+              name="email"
+              control={control}
+              defaultValue=""
+              render={({ field, fieldState: { error } }) => (
+                <TextField
+                  {...field}
+                  variant="outlined"
+                  label="email"
+                  type="email"
+                  error={!!error}
+                  helperText={error ? error.message : null}
+                  id="email"
+                />
+              )}
+              rules={{
+                required: "email is required",
+                pattern: {
                   value: EMAIL_REGEXP,
-                  message: 'Email format is not correct'
-                } }}
-              />
-            
- 
+                  message: "Email format is not correct",
+                },
+              }}
+            />
+
             <Box p={1} />
             <Controller
-                name="password"
-                control={control}
-                defaultValue=""
-                render={({ field, fieldState: { error } }) => (
-                  <TextField
-                    {...field}
-                    variant="outlined"
-                    type="password"
-                    label="password"                    
-                    error={!!error}
-                    helperText={error ? error.message : null}
-                    id="password"
-                  />
+              name="password"
+              control={control}
+              defaultValue=""
+              render={({ field, fieldState: { error } }) => (
+                <TextField
+                  {...field}
+                  variant="outlined"
+                  type="password"
+                  label="password"
+                  error={!!error}
+                  helperText={error ? error.message : null}
+                  id="password"
+                />
               )}
               rules={{
                 required: "password is required",

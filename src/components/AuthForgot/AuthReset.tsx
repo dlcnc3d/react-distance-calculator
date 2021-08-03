@@ -23,8 +23,8 @@ type Props = {
 };
 
 export const AuthReset: React.FC<Props> = (props) => {
-
-  const EMAIL_REGEXP = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+  const EMAIL_REGEXP =
+    /^(([^<>()[\]\\.,;:\s@\\"]+(\.[^<>()[\]\\.,;:\s@\\"]+)*)|(\\".+\\"))@(([^<>()[\]\\.,;:\s@\\"]+\.)+[^<>()[\]\\.,;:\s@\\"]{2,})$/i;
   const classes = useStyles();
   const { handleSubmit, control } = useForm<FormValues>();
 
@@ -41,7 +41,7 @@ export const AuthReset: React.FC<Props> = (props) => {
       setMessage("");
       setLoading(true);
       await resetPassword(email);
-      setMessage("Please chech yor email for further instructions");      
+      setMessage("Please chech yor email for further instructions");
       setTimeout(() => {
         props.onClose();
       }, 1500);
@@ -55,7 +55,11 @@ export const AuthReset: React.FC<Props> = (props) => {
     <div>
       <Paper className={classes.root}>
         <Grid>
-          <div className={classes.titlemain}>
+          <div
+            className={
+              error === "" ? classes.titlemain : classes.titlemainAlert
+            }
+          >
             <Typography className={classes.title}>Forgot Password </Typography>
             <Box p={1}>
               {error && (
@@ -83,25 +87,28 @@ export const AuthReset: React.FC<Props> = (props) => {
             <Box p={1} />
 
             <Controller
-                name="email"
-                control={control}
-                defaultValue=""
-                render={({ field, fieldState: { error } }) => (
-                  <TextField
-                    {...field}
-                    variant="outlined"
-                    label="email"
-                    type="email"
-                    error={!!error}
-                    helperText={error ? error.message : null}
-                    id="email"
-                  />
-                )}
-                rules={{ required: "email is required", pattern: {
+              name="email"
+              control={control}
+              defaultValue=""
+              render={({ field, fieldState: { error } }) => (
+                <TextField
+                  {...field}
+                  variant="outlined"
+                  label="email"
+                  type="email"
+                  error={!!error}
+                  helperText={error ? error.message : null}
+                  id="email"
+                />
+              )}
+              rules={{
+                required: "email is required",
+                pattern: {
                   value: EMAIL_REGEXP,
-                  message: 'Email format is not correct'
-                } }}
-              />
+                  message: "Email format is not correct",
+                },
+              }}
+            />
             <Box p={1} />
 
             <Box p={1} />

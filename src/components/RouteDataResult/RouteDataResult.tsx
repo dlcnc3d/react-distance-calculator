@@ -10,7 +10,7 @@ import { getTransfers } from "../../core/helpers/transfers.helpers";
 
 export const RouteDataResult = () => {
   const classes = useStyles();
-  const { routes } = useMapData();
+  const { routes, points } = useMapData();
   const [routeData, setRouteData] = React.useState<RouteData>();
   const { routesEnabled } = useMapData();
 
@@ -18,7 +18,8 @@ export const RouteDataResult = () => {
     if (
       routes !== null &&
       routes.routes[0].fare !== undefined &&
-      typeof routes.routes[0].fare !== "undefined"
+      typeof routes.routes[0].fare !== "undefined" &&
+      getTransfers(routes) > 0
     ) {
       setRouteData({
         fare: routes.routes[0].fare.value,
@@ -35,7 +36,7 @@ export const RouteDataResult = () => {
 
   return (
     <div>
-      {routeData && routesEnabled && (
+      {routeData && routesEnabled && routes && getTransfers(routes) !== 0 && (
         <Paper className={classes.infoWindow}>
           <Box p={1}>
             <Typography align="center"> ROUTE INFORMATION: </Typography>
@@ -44,6 +45,19 @@ export const RouteDataResult = () => {
             <Typography> DURATION - {routeData.fare} min </Typography>
             <Typography> DISTANSE - {routeData.fare} km </Typography>
             <Typography>TRANSFERS - {routeData.transfers}</Typography>
+          </Box>
+        </Paper>
+      )}
+      {routes && getTransfers(routes) === 0 && (
+        <Paper className={classes.infoWindow}>
+          <Box p={1}>
+            <Typography align="center"> ROUTE INFORMATION: </Typography>
+            <Box p={1}></Box>
+            <Typography color="primary">
+              {" "}
+              There is no transport which can be used. Please chose another
+              point or you just can walk{" "}
+            </Typography>
           </Box>
         </Paper>
       )}

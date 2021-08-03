@@ -24,8 +24,8 @@ type Props = {
 };
 
 export const UpdateUserData: React.FC<Props> = (props) => {
-
-const EMAIL_REGEXP = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+  const EMAIL_REGEXP =
+    /^(([^<>()[\]\\.,;:\s@\\"]+(\.[^<>()[\]\\.,;:\s@\\"]+)*)|(\\".+\\"))@(([^<>()[\]\\.,;:\s@\\"]+\.)+[^<>()[\]\\.,;:\s@\\"]{2,})$/i;
 
   const classes = useStyles();
   const { handleSubmit, control } = useForm<FormValues>();
@@ -82,7 +82,11 @@ const EMAIL_REGEXP = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\
     <div>
       <Paper className={classes.root}>
         <Grid>
-          <div className={classes.titlemain}>
+          <div
+            className={
+              error === "" ? classes.titlemain : classes.titlemainAlert
+            }
+          >
             <Typography className={classes.title}>
               Update User Information{" "}
             </Typography>
@@ -112,41 +116,44 @@ const EMAIL_REGEXP = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\
             <Box p={1} />
 
             <Controller
-                name="email"
-                control={control}
-                defaultValue=""
-                render={({ field, fieldState: { error } }) => (
-                  <TextField
-                    {...field}
-                    variant="outlined"
-                    label="email"
-                    type="email"
-                    error={!!error}
-                    helperText={error ? error.message : null}
-                    id="email"
-                  />
-                )}
-                rules={{ required: "email is required", pattern: {
+              name="email"
+              control={control}
+              defaultValue=""
+              render={({ field, fieldState: { error } }) => (
+                <TextField
+                  {...field}
+                  variant="outlined"
+                  label="email"
+                  type="email"
+                  error={!!error}
+                  helperText={error ? error.message : null}
+                  id="email"
+                />
+              )}
+              rules={{
+                required: "email is required",
+                pattern: {
                   value: EMAIL_REGEXP,
-                  message: 'Email format is not correct'
-                } }}
-              />
+                  message: "Email format is not correct",
+                },
+              }}
+            />
             <Box p={1} />
 
             <Controller
-                name="password"
-                control={control}
-                defaultValue=""
-                render={({ field, fieldState: { error } }) => (
-                  <TextField
-                    {...field}
-                    variant="outlined"
-                    type="password"
-                    label="password"                    
-                    error={!!error}
-                    helperText={error ? error.message : null}
-                    id="password"
-                  />      
+              name="password"
+              control={control}
+              defaultValue=""
+              render={({ field, fieldState: { error } }) => (
+                <TextField
+                  {...field}
+                  variant="outlined"
+                  type="password"
+                  label="password"
+                  error={!!error}
+                  helperText={error ? error.message : null}
+                  id="password"
+                />
               )}
               rules={{
                 minLength: {
@@ -167,7 +174,7 @@ const EMAIL_REGEXP = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\
                   variant="outlined"
                   type="password"
                   label="confirm password"
-                  placeholder="do not type if you want to keep same data"                 
+                  placeholder="do not type if you want to keep same data"
                   error={!!error}
                   helperText={error ? error.message : null}
                   id="confirmPassword"
