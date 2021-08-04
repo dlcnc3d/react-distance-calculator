@@ -13,6 +13,8 @@ import { MarkerData } from "../../../definitions/types";
 import { MapRoutes } from "../../MapRoutes/MapRoutes";
 import { MarkerType } from "../../../definitions/enums";
 import uniqid from "uniqid";
+import { colors } from "@material-ui/core";
+import { Label } from "@material-ui/icons";
 
 type Props = {
   onMapClick: (data: MarkerData) => void;
@@ -66,6 +68,8 @@ const MapWrapper = (props: Props) => {
     }
   };
 
+  //const setLabel = new google.maps.Marker.Label.
+
   return isLoaded ? (
     <GoogleMap
       mapContainerStyle={containerStyle}
@@ -80,7 +84,7 @@ const MapWrapper = (props: Props) => {
           key={p.id}
           position={{ lat: p.lat, lng: p.lng }}
           animation={google.maps.Animation.DROP}
-          label={MarkerType[p.type]}
+          label={p.type === MarkerType.Start ? "A" : "B"}
           visible={routes !== null ? false : true}
         >
           <InfoWindow
