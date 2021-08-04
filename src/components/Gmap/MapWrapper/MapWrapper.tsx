@@ -13,8 +13,6 @@ import { MarkerData } from "../../../definitions/types";
 import { MapRoutes } from "../../MapRoutes/MapRoutes";
 import { MarkerType } from "../../../definitions/enums";
 import uniqid from "uniqid";
-import { colors } from "@material-ui/core";
-import { Label } from "@material-ui/icons";
 
 type Props = {
   onMapClick: (data: MarkerData) => void;
@@ -51,9 +49,9 @@ const MapWrapper = (props: Props) => {
   const { setError } = useMapData();
   const { currentUser } = useAuthData();
   const { routes, setRoutes } = useMapData();
-  const Offset = new google.maps.Size(0, -50);
+  const offset = new google.maps.Size(0, -40);
 
-  const MapClickHandle = (e: any) => {
+  const clickHandler = (e: any) => {
     if (currentUser !== null) {
       props.onMapClick({
         id: uniqid(),
@@ -68,8 +66,6 @@ const MapWrapper = (props: Props) => {
     }
   };
 
-  //const setLabel = new google.maps.Marker.Label.
-
   return isLoaded ? (
     <GoogleMap
       mapContainerStyle={containerStyle}
@@ -77,7 +73,7 @@ const MapWrapper = (props: Props) => {
       zoom={15}
       onLoad={onLoad}
       onUnmount={onUnmount}
-      onClick={MapClickHandle}
+      onClick={clickHandler}
     >
       {points.map((p) => (
         <Marker
@@ -88,7 +84,7 @@ const MapWrapper = (props: Props) => {
           visible={routes !== null ? false : true}
         >
           <InfoWindow
-            options={{ pixelOffset: Offset }}
+            options={{ pixelOffset: offset }}
             position={{ lat: p.lat, lng: p.lng }}
           >
             <div>{p.address}</div>

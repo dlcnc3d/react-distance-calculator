@@ -72,12 +72,13 @@ export const Autocomplete: React.FC<Props> = (props) => {
           <div className={classes.autocompleteWrapper}>
             {loading ? <div>...loading</div> : null}
 
-            {suggestions.map((suggestion) => {
+            {suggestions.map((suggestion, index) => {
               const style = {
                 backgroundColor: suggestion.active ? "#596F8730" : "#596F8720",
               };
               return (
                 <div
+                  key={index}
                   className={classes.autocompleteItem}
                   {...getSuggestionItemProps(suggestion, { style })}
                 >

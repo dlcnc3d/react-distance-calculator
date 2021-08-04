@@ -40,6 +40,7 @@ export const UpdateUserData: React.FC<Props> = (props) => {
   const history = useHistory();
 
   const submitHandler = (data: FormValues) => {
+    
     const { confirmPassword, email, password } = data;
 
     if (password !== confirmPassword) {

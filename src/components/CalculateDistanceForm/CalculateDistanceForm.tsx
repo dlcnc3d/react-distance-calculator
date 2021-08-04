@@ -115,9 +115,7 @@ export const CalculateDistanceForm: React.FC<Props> = (props) => {
           ? "Start Position"
           : "Start Position has been found by geolocation"}
       </FormHelperText>
-
       <Box p={1} />
-
       <Autocomplete
         onSelect={(data: MarkerData) =>
           props.selectHandler(data, MarkerType.Finish, MarkerType.Finish)

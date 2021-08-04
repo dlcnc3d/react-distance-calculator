@@ -10,7 +10,7 @@ import { getTransfers } from "../../core/helpers/transfers.helpers";
 
 export const RouteDataResult = () => {
   const classes = useStyles();
-  const { routes, points } = useMapData();
+  const { routes } = useMapData();
   const [routeData, setRouteData] = React.useState<RouteData>();
   const { routesEnabled } = useMapData();
 
@@ -56,7 +56,7 @@ export const RouteDataResult = () => {
             <Typography color="primary">
               {" "}
               There is no transport which can be used. Please chose another
-              point or you just can walk{" "}
+              point or just walk{" "}
             </Typography>
           </Box>
         </Paper>

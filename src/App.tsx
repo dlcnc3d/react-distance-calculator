@@ -5,28 +5,25 @@ import NavMenu from "./components/NavMenu/NavMenu";
 import { Footer } from "./components/Footer/Footer";
 import { MainComponent } from "./components/MainComponent/MainComponent";
 import { MapProvider } from "./context/map.context";
-import { StrictMode } from "react";
 import { AuthProvider } from "./context/auth.context";
 import { BrowserRouter as Router } from "react-router-dom";
 
 function App() {
   return (
-    <StrictMode>
-      <Router>
-        <AuthProvider>
-          <MapProvider>
-            <MuiThemeProvider theme={defaultTheme}>
-              <NavMenu />
-              <CssBaseline />
-              <main>
-                <MainComponent />
-              </main>
-              <Footer year={new Date().getFullYear()}> </Footer>
-            </MuiThemeProvider>
-          </MapProvider>
-        </AuthProvider>
-      </Router>
-    </StrictMode>
+    <Router>
+      <AuthProvider>
+        <MapProvider>
+          <MuiThemeProvider theme={defaultTheme}>
+            <NavMenu />
+            <CssBaseline />
+            <main>
+              <MainComponent />
+            </main>
+            <Footer year={new Date().getFullYear()}> </Footer>
+          </MuiThemeProvider>
+        </MapProvider>
+      </AuthProvider>
+    </Router>
   );
 }
 

@@ -155,8 +155,7 @@ export const LoginForm: React.FC<Props> = (props) => {
             </Button>
 
             <Button
-              className={classes.buttonfullWidth}
-              //disabled={loading}
+              className={classes.buttonfullWidth}              
               type="button"
               variant="outlined"
               color="secondary"
